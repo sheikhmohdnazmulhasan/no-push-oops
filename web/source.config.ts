@@ -3,7 +3,7 @@ import {
   defineDocs,
   frontmatterSchema,
 } from "fumadocs-mdx/config"
-import { z } from "zod"
+import { z } from "zod/v3"
 
 export default defineConfig({
   lastModifiedTime: "git",

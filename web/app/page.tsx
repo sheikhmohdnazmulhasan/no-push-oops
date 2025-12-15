@@ -1,12 +1,12 @@
 import { docs, meta } from "@/.source"
 import { loader } from "fumadocs-core/source"
-import { createMDXSource } from "fumadocs-mdx"
+import { resolveFiles } from "fumadocs-mdx"
 import { GithubStarButton } from "@/components/github-star-button"
 import { Heart } from "lucide-react"
 
 const source = loader({
   baseUrl: "/docs",
-  source: createMDXSource(docs, meta),
+  source: { files: resolveFiles({ docs, meta }) },
 })
 
 interface DocumentationData {
@@ -26,7 +26,7 @@ interface DocumentationPage {
  * Sorts documentation pages by date in descending order (newest first)
  */
 const getSortedDocs = (): DocumentationPage[] => {
-  const allPages = source.getPages() as DocumentationPage[]
+  const allPages = source.getPages() as unknown as DocumentationPage[]
   return allPages.sort((a, b) => {
     const dateA = new Date(a.data.date).getTime()
     const dateB = new Date(b.data.date).getTime()
