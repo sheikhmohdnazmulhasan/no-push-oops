@@ -1,0 +1,203 @@
+---
+title: "API Reference"
+description: "Programmatic API for advanced usage"
+date: "2024-12-31"
+tags: ["API", "Advanced"]
+version: "1.0"
+---
+
+## Programmatic Usage
+
+You can use `no-push-oops` programmatically in your Node.js scripts:
+
+```typescript
+import { 
+  loadConfig, 
+  runPreflightChecks, 
+  installHook, 
+  uninstallHook 
+} from 'no-push-oops';
+
+// Load configuration
+const config = loadConfig();
+
+// Run preflight checks
+const success = await runPreflightChecks(config);
+
+// Install/uninstall hooks programmatically
+installHook();
+uninstallHook();
+```
+
+## API Functions
+
+<Accordion type="multiple" collapsible className="w-full not-prose">
+  <AccordionItem value="item-1">
+    <AccordionTrigger>loadConfig()</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <p>Loads configuration from package.json or .nopushoopsrc.json</p>
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`import { loadConfig } from 'no-push-oops';
+
+const config = loadConfig();
+// Returns NoPushOopsConfig object`}
+      </pre>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-2">
+    <AccordionTrigger>validateConfig(config)</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <p>Validates the configuration object</p>
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`import { validateConfig, loadConfig } from 'no-push-oops';
+
+const config = loadConfig();
+try {
+  validateConfig(config);
+  console.log('Configuration is valid');
+} catch (error) {
+  console.error('Invalid configuration:', error);
+}`}
+      </pre>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-3">
+    <AccordionTrigger>runPreflightChecks(config)</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <p>Runs the configured preflight checks</p>
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`import { runPreflightChecks, loadConfig } from 'no-push-oops';
+
+const config = loadConfig();
+const success = await runPreflightChecks(config);
+// Returns Promise<boolean>`}
+      </pre>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-4">
+    <AccordionTrigger>installHook() / uninstallHook()</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <p>Install or uninstall the Git pre-push hook</p>
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`import { installHook, uninstallHook } from 'no-push-oops';
+
+// Install hook
+const installed = installHook();
+// Returns boolean
+
+// Uninstall hook
+const uninstalled = uninstallHook();
+// Returns boolean`}
+      </pre>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-5">
+    <AccordionTrigger>Utility Functions</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`import { 
+  isCI, 
+  getCurrentBranch, 
+  findGitRoot,
+  isGitRepo,
+  formatDuration 
+} from 'no-push-oops';
+
+// Check if running in CI
+const ci = isCI(); // boolean
+
+// Get current Git branch
+const branch = getCurrentBranch(); // string | null
+
+// Find Git repository root
+const root = findGitRoot(); // string | null
+
+// Check if directory is a Git repo
+const isRepo = isGitRepo(); // boolean
+
+// Format duration in ms
+const formatted = formatDuration(1500); // "1.5s"`}
+      </pre>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-6">
+    <AccordionTrigger>runCommand(command, options)</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <p>Run a shell command with timeout and verbose options</p>
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`import { runCommand } from 'no-push-oops';
+
+const result = await runCommand('npm test', {
+  timeout: 300000,
+  verbose: true
+});
+
+// Returns CommandResult
+// {
+//   success: boolean,
+//   exitCode: number,
+//   command: string,
+//   output?: string,
+//   error?: string
+// }`}
+      </pre>
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+
+## TypeScript Types
+
+```typescript
+export interface NoPushOopsConfig {
+  command?: string;
+  commands?: string[];
+  message?: string;
+  skipCI?: boolean;
+  skipOnBranches?: string[];
+  verbose?: boolean;
+  timeout?: number;
+}
+
+export interface CommandResult {
+  success: boolean;
+  exitCode: number;
+  command: string;
+  output?: string;
+  error?: string;
+}
+```
+
+## Example: Custom Pre-Push Script
+
+```typescript
+import { 
+  loadConfig, 
+  runPreflightChecks, 
+  isCI, 
+  getCurrentBranch 
+} from 'no-push-oops';
+
+async function customPrePush() {
+  const config = loadConfig();
+  
+  // Skip in CI
+  if (config.skipCI && isCI()) {
+    console.log('Skipping in CI environment');
+    return true;
+  }
+  
+  // Skip on specific branches
+  const branch = getCurrentBranch();
+  if (branch && config.skipOnBranches?.includes(branch)) {
+    console.log(`Skipping on branch: ${branch}`);
+    return true;
+  }
+  
+  // Run checks
+  return await runPreflightChecks(config);
+}
+
+customPrePush().then(success => {
+  process.exit(success ? 0 : 1);
+});
+```

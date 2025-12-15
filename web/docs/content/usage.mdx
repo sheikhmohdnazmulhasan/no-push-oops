@@ -1,0 +1,160 @@
+---
+title: "Usage & Examples"
+description: "Common use cases and practical examples"
+date: "2025-01-05"
+tags: ["Usage", "Examples"]
+version: "1.0"
+---
+
+## Usage
+
+### Automatic (Recommended)
+
+Once installed, `no-push-oops` will automatically run on every `git push`. If the checks fail, the push will be aborted.
+
+### Manual Run
+
+You can manually run the checks:
+
+```bash
+npx no-push-oops run
+```
+
+### Bypass Hook (Emergency Only)
+
+If you need to bypass the hook (not recommended):
+
+```bash
+git push --no-verify
+```
+
+### Uninstall
+
+To remove the hook:
+
+```bash
+npx no-push-oops uninstall
+```
+
+## Common Use Cases
+
+### Basic Linting and Testing
+
+```json
+{
+  "no-push-oops": {
+    "command": "npm run lint && npm run test"
+  }
+}
+```
+
+### Full CI Pipeline
+
+```json
+{
+  "no-push-oops": {
+    "commands": [
+      "npm run lint",
+      "npm run test:unit",
+      "npm run test:integration",
+      "npm run type-check",
+      "npm run build"
+    ],
+    "message": "Running full CI pipeline...",
+    "timeout": 600000
+  }
+}
+```
+
+### Skip on Main Branch
+
+```json
+{
+  "no-push-oops": {
+    "command": "npm run validate",
+    "skipOnBranches": ["main", "master", "production"]
+  }
+}
+```
+
+### Verbose Mode for Debugging
+
+```json
+{
+  "no-push-oops": {
+    "command": "npm run test",
+    "verbose": true
+  }
+}
+```
+
+<Accordion type="multiple" collapsible className="w-full not-prose">
+  <AccordionItem value="item-1">
+    <AccordionTrigger>TypeScript/React Project</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`{
+  "scripts": {
+    "pr-preflight": "npm run lint && npm run type-check && npm run test && npm run build"
+  },
+  "no-push-oops": {
+    "command": "npm run pr-preflight",
+    "skipOnBranches": ["main"]
+  }
+}`}
+      </pre>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-2">
+    <AccordionTrigger>Node.js API Project</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`{
+  "scripts": {
+    "pr-preflight": "npm run lint && npm run test:coverage && npm run build"
+  },
+  "no-push-oops": {
+    "commands": [
+      "npm run lint",
+      "npm run test:coverage",
+      "npm run security-check",
+      "npm run build"
+    ],
+    "timeout": 600000
+  }
+}`}
+      </pre>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-3">
+    <AccordionTrigger>Monorepo Setup</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <p>Install at the root and run checks across workspaces:</p>
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`{
+  "no-push-oops": {
+    "commands": [
+      "npm run lint --workspaces",
+      "npm run test --workspaces"
+    ],
+    "timeout": 900000
+  }
+}`}
+      </pre>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-4">
+    <AccordionTrigger>TypeScript Type Checking Only</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <p>Catch type errors before pushing:</p>
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`{
+  "no-push-oops": {
+    "command": "tsc --noEmit",
+    "message": "Type checking TypeScript..."
+  }
+}`}
+      </pre>
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>

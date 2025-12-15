@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   keywords: siteConfig.keywords,
   authors: [
     {
-      name: "Magic UI",
-      url: "https://magicui.design",
+      name: "Sheikh",
+      url: "https://github.com/sheikhmohdnazmulhasan",
     },
   ],
-  creator: "magicuidesign",
+  creator: "sheikhmohdnazmulhasan",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -24,7 +24,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    creator: "@magicuidesign",
   },
   robots: {
     index: true,

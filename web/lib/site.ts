@@ -1,18 +1,22 @@
 export const siteConfig = {
-  name: "Changelog Template",
-  url: "https://changelog-magicui.vercel.app",
-  description: "A minimal changelog template built using Next.js.",
+  name: "no-push-oops",
+  url: "https://github.com/sheikhmohdnazmulhasan/no-push-oops",
+  description:
+    "A Git pre-push hook that runs your preflight checks to prevent oops moments",
   links: {
-    twitter: "https://x.com/magicuidesign",
-    github: "https://github.com/magicuidesign",
+    github: "https://github.com/sheikhmohdnazmulhasan/no-push-oops",
+    npm: "https://www.npmjs.com/package/no-push-oops",
   },
   keywords: [
-    "Changelog",
-    "Next.js",
-    "Fumadocs",
-    "Tailwind CSS",
-    "shadcn",
-    "Magic UI",
+    "git",
+    "hook",
+    "pre-push",
+    "preflight",
+    "quality",
+    "ci",
+    "testing",
+    "linting",
+    "validation",
   ],
 }
 

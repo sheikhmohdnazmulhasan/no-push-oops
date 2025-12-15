@@ -1,0 +1,121 @@
+---
+title: "Getting Started"
+description: "Install and configure no-push-oops in your project"
+date: "2025-01-15"
+tags: ["Installation", "Setup"]
+version: "1.0"
+---
+
+## Overview
+
+**Prevent "oops" moments by running preflight checks before every Git push**
+
+A lightweight, configurable Git pre-push hook that automatically runs your quality checks (tests, linting, type-checking, etc.) before allowing a push to go through.
+
+## Features
+
+- **Zero Configuration** - Works out of the box with sensible defaults
+- **Highly Configurable** - Customize commands, messages, and behavior
+- **Auto-Installation** - Automatically sets up Git hooks on install
+- **Beautiful Output** - Color-coded, clean terminal output
+- **Timeout Support** - Prevent hung processes
+- **Branch-Specific** - Skip checks on specific branches
+- **CI-Aware** - Automatically skips in CI environments
+- **TypeScript Support** - Fully typed for better DX
+
+## Installation
+
+Install `no-push-oops` as a dev dependency in your project:
+
+```bash
+npm install --save-dev no-push-oops
+```
+
+Or using yarn:
+
+```bash
+yarn add -D no-push-oops
+```
+
+Or using pnpm:
+
+```bash
+pnpm add -D no-push-oops
+```
+
+### Manual Hook Installation
+
+If the hook isn't installed automatically, run:
+
+```bash
+npx no-push-oops install
+```
+
+## Quick Start
+
+1. **Install the package:**
+
+```bash
+npm install --save-dev no-push-oops
+```
+
+2. **Add configuration to your `package.json`:**
+
+```json
+{
+  "no-push-oops": {
+    "command": "npm run pr-preflight"
+  },
+  "scripts": {
+    "pr-preflight": "npm run lint && npm run test && npm run build"
+  }
+}
+```
+
+3. **That's it!** Now every time you push, your preflight checks will run automatically.
+
+<Accordion type="multiple" collapsible className="w-full not-prose">
+  <AccordionItem value="item-1">
+    <AccordionTrigger>Why no-push-oops?</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <p><strong>Problem:</strong> You push code, CI fails, you fix it, push again, repeat...</p>
+      <p><strong>Solution:</strong> Run your CI checks locally before pushing. Catch issues early!</p>
+      <h4 className="font-semibold mt-4 mb-2">Benefits:</h4>
+      <ul className="list-disc space-y-2 pl-4">
+        <li><strong>Catch issues before pushing</strong> - Save time and embarrassment</li>
+        <li><strong>Faster feedback</strong> - Know immediately if something's wrong</li>
+        <li><strong>Better Git history</strong> - No "fix CI" commits</li>
+        <li><strong>Team consistency</strong> - Everyone runs the same checks</li>
+        <li><strong>Easy to set up</strong> - One npm install and you're done</li>
+      </ul>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-2">
+    <AccordionTrigger>CLI Commands</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`# Install the pre-push hook
+npx no-push-oops install
+
+# Uninstall the pre-push hook
+npx no-push-oops uninstall
+
+# Run checks manually
+npx no-push-oops run
+
+# Show help
+npx no-push-oops help`}
+      </pre>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-3">
+    <AccordionTrigger>Bypass Hook (Emergency Only)</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <p>If you need to bypass the hook in an emergency (not recommended):</p>
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`git push --no-verify`}
+      </pre>
+      <p className="text-sm text-muted-foreground">⚠️ Use this sparingly! It defeats the purpose of having pre-push checks.</p>
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>

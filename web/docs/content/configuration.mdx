@@ -1,0 +1,127 @@
+---
+title: "Configuration"
+description: "Configure no-push-oops to match your workflow"
+date: "2025-01-10"
+tags: ["Configuration", "Setup"]
+version: "1.0"
+---
+
+## Configuration Methods
+
+You can configure `no-push-oops` in three ways:
+
+**1. In `package.json`:**
+
+```json
+{
+  "no-push-oops": {
+    "command": "npm run pr-preflight",
+    "message": "Running quality checks...",
+    "skipCI": true,
+    "skipOnBranches": ["main", "develop"],
+    "verbose": false,
+    "timeout": 300000
+  }
+}
+```
+
+**2. In `.nopushoopsrc.json`:**
+
+```json
+{
+  "command": "npm run pr-preflight",
+  "message": "Running quality checks...",
+  "skipCI": true
+}
+```
+
+**3. In `.nopushoopsrc`:**
+
+```json
+{
+  "command": "npm run pr-preflight"
+}
+```
+
+## Configuration Options
+
+| Option           | Type       | Default                                     | Description                          |
+| ---------------- | ---------- | ------------------------------------------- | ------------------------------------ |
+| `command`        | `string`   | `"npm run pr-preflight"`                    | Single command to run                |
+| `commands`       | `string[]` | -                                           | Multiple commands to run in sequence |
+| `message`        | `string`   | `"Running pr-preflight checks before push"` | Custom message to display            |
+| `skipCI`         | `boolean`  | `true`                                      | Skip checks in CI environments       |
+| `skipOnBranches` | `string[]` | `[]`                                        | Branches to skip checks on           |
+| `verbose`        | `boolean`  | `false`                                     | Show detailed output                 |
+| `timeout`        | `number`   | `300000`                                    | Command timeout in milliseconds      |
+
+<Accordion type="multiple" collapsible className="w-full not-prose">
+  <AccordionItem value="item-1">
+    <AccordionTrigger>Single Command</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <p>Run a single command:</p>
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`{
+  "no-push-oops": {
+    "command": "npm run pr-preflight"
+  }
+}`}
+      </pre>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-2">
+    <AccordionTrigger>Multiple Commands</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <p>Run multiple commands in sequence:</p>
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`{
+  "no-push-oops": {
+    "commands": [
+      "npm run lint",
+      "npm run test",
+      "npm run type-check",
+      "npm run build"
+    ]
+  }
+}`}
+      </pre>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-3">
+    <AccordionTrigger>Custom Message</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <p>Customize the message displayed when running checks:</p>
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`{
+  "no-push-oops": {
+    "command": "npm run validate",
+    "message": "🚀 Running pre-push quality checks..."
+  }
+}`}
+      </pre>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-4">
+    <AccordionTrigger>Full Configuration Example</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`{
+  "no-push-oops": {
+    "commands": [
+      "npm run lint",
+      "npm run test:unit",
+      "npm run test:integration",
+      "npm run type-check",
+      "npm run build"
+    ],
+    "message": "Running full CI pipeline...",
+    "skipCI": true,
+    "skipOnBranches": ["main", "master", "production"],
+    "verbose": true,
+    "timeout": 600000
+  }
+}`}
+      </pre>
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>

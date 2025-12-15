@@ -1,0 +1,149 @@
+---
+title: "Comparison & FAQ"
+description: "How no-push-oops compares to other tools and frequently asked questions"
+date: "2025-01-01"
+tags: ["Comparison", "FAQ"]
+version: "1.0"
+---
+
+## Comparison with Other Tools
+
+| Feature          | no-push-oops | husky | pre-commit |
+| ---------------- | ------------ | ----- | ---------- |
+| Zero config      | ✅ Yes       | ❌ No | ❌ No      |
+| TypeScript       | ✅ Yes       | ❌ No | ❌ No      |
+| Pre-push focus   | ✅ Yes       | ❌ No | ❌ No      |
+| Auto-install     | ✅ Yes       | ✅ Yes| ✅ Yes     |
+| Branch filtering | ✅ Yes       | ❌ No | ✅ Yes     |
+| Timeout support  | ✅ Yes       | ❌ No | ✅ Yes     |
+
+**Why choose no-push-oops?**
+
+- **Focused on pre-push** - Specifically designed for running checks before pushing
+- **Zero configuration** - Works out of the box with sensible defaults
+- **TypeScript-first** - Fully typed API for better developer experience
+- **Simple and lightweight** - Does one thing well without unnecessary complexity
+
+<Accordion type="multiple" collapsible className="w-full not-prose">
+  <AccordionItem value="item-1">
+    <AccordionTrigger>What if I need to push urgently and checks are failing?</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <p>Use <code>git push --no-verify</code> to bypass the hook. But use this sparingly!</p>
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`git push --no-verify`}
+      </pre>
+      <p className="text-sm text-muted-foreground">⚠️ This should only be used in emergencies. It defeats the purpose of having pre-push checks.</p>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-2">
+    <AccordionTrigger>Can I run different checks on different branches?</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <p>Not directly, but you can skip checks on certain branches and implement branch logic in your scripts.</p>
+      <p>Example:</p>
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`{
+  "no-push-oops": {
+    "command": "npm run pr-preflight",
+    "skipOnBranches": ["main", "production"]
+  }
+}`}
+      </pre>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-3">
+    <AccordionTrigger>Does this work with GitLab/GitHub/Bitbucket?</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <p>Yes! It works with any Git repository, regardless of the hosting platform.</p>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-4">
+    <AccordionTrigger>What if the hook isn't running?</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <p>Run <code>npx no-push-oops install</code> manually to reinstall the hook.</p>
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`npx no-push-oops install`}
+      </pre>
+      <p>This will recreate the pre-push hook in your <code>.git/hooks</code> directory.</p>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-5">
+    <AccordionTrigger>Can I use this in a monorepo?</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <p>Yes! Install it at the root and configure commands accordingly:</p>
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`{
+  "no-push-oops": {
+    "commands": [
+      "npm run lint --workspaces",
+      "npm run test --workspaces"
+    ],
+    "timeout": 900000
+  }
+}`}
+      </pre>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-6">
+    <AccordionTrigger>How do I debug if my checks are failing?</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <p>Enable verbose mode to see detailed output:</p>
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`{
+  "no-push-oops": {
+    "command": "npm run test",
+    "verbose": true
+  }
+}`}
+      </pre>
+      <p>You can also run checks manually:</p>
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`npx no-push-oops run`}
+      </pre>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-7">
+    <AccordionTrigger>What happens if a command times out?</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <p>The hook will abort the push and display an error. You can increase the timeout:</p>
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`{
+  "no-push-oops": {
+    "command": "npm run slow-tests",
+    "timeout": 600000  // 10 minutes
+  }
+}`}
+      </pre>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-8">
+    <AccordionTrigger>Can I disable it temporarily?</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <p>Yes, you can uninstall and reinstall later:</p>
+      <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+{`# Temporarily disable
+npx no-push-oops uninstall
+
+# Re-enable later
+npx no-push-oops install`}
+      </pre>
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+MIT © Sheikh
+
+---
+
+Made to prevent oops moments 🚀
