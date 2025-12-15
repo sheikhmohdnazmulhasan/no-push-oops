@@ -10,6 +10,7 @@ const PRE_PUSH_HOOK_TEMPLATE = `#!/usr/bin/env node
 
 // Pre-push hook installed by no-push-oops
 // This hook runs preflight checks before allowing push
+// More: https://github.com/sheikhmohdnazmulhasan/no-push-oops
 
 const { execSync } = require('child_process');
 const { join } = require('path');
@@ -20,6 +21,9 @@ try {
   
   // Change to repository root
   process.chdir(repoRoot);
+  
+  // Override argv to force 'run' command (git passes hook arguments we don't need)
+  process.argv = [process.argv[0], 'no-push-oops', 'run'];
   
   // Find and run the CLI from node_modules (cross-platform)
   const cliPath = join(process.cwd(), 'node_modules', 'no-push-oops', 'dist', 'cli.js');
