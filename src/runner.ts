@@ -66,8 +66,16 @@ export const runCommand = async ({
         console.log(chalk.green(`[OK] Completed in ${formatDuration(duration)}`));
       } else {
         console.log(chalk.red(`[FAIL] Failed with exit code ${exitCode}`));
-        if (!verbose && errorOutput) {
-          console.log(chalk.red(errorOutput));
+        // Show command output when it fails (for non-verbose mode)
+        if (!verbose) {
+          if (output && output.trim()) {
+            console.log('\n' + chalk.yellow('Output:'));
+            console.log(output);
+          }
+          if (errorOutput && errorOutput.trim()) {
+            console.log('\n' + chalk.red('Error output:'));
+            console.log(errorOutput);
+          }
         }
       }
 
@@ -127,7 +135,6 @@ export const runPreflightChecks = async (config: NoPushOopsConfig): Promise<bool
     );
   } else {
     console.log(chalk.red.bold('======== Preflight checks failed. Push aborted ========'));
-    console.log(chalk.yellow('Please fix the issues above and try again.'));
   }
 
   return allSucceeded;
