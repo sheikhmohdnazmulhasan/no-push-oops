@@ -323,12 +323,6 @@ A: Run `npx no-push-oops install` manually to reinstall the hook.
 
 A: Yes! Install it at the root and configure commands accordingly.
 
-## Links
-
-- [GitHub Repository](https://github.com/yourusername/no-push-oops)
-- [npm Package](https://www.npmjs.com/package/no-push-oops)
-- [Report Issues](https://github.com/yourusername/no-push-oops/issues)
-
 ---
 
 Made to prevent oops moments
