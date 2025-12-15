@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Star } from "lucide-react"
+import { Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const GITHUB_REPO = "sheikhmohdnazmulhasan/no-push-oops"
@@ -55,8 +55,8 @@ export const GithubStarButton = () => {
         rel="noopener noreferrer"
         className="flex items-center gap-2"
       >
-        <Star className="h-4 w-4" />
-        <span className="hidden sm:inline">Star on GitHub</span>
+        <Github className="h-4 w-4" />
+        {/* <span className="hidden sm:inline">GitHub</span> */}
         {!isLoading && stars !== null && (
           <span className="inline-flex items-center justify-center min-w-[2rem] h-5 px-2 text-xs font-medium bg-muted rounded-full">
             {formatStarCount(stars)}
