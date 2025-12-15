@@ -2,16 +2,26 @@ import { Metadata } from "next"
 import { siteConfig } from "@/lib/site"
 
 export const metadata: Metadata = {
-  title: siteConfig.name,
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
   description: siteConfig.description,
   keywords: siteConfig.keywords,
   authors: [
     {
-      name: "Sheikh",
+      name: "Sheikh Mohammad Nazmul Hasan",
       url: "https://github.com/sheikhmohdnazmulhasan",
     },
   ],
-  creator: "sheikhmohdnazmulhasan",
+  creator: "Sheikh Mohammad Nazmul Hasan",
+  publisher: "Sheikh Mohammad Nazmul Hasan",
+  applicationName: "no-push-oops",
+  category: "Developer Tools",
+  metadataBase: new URL(siteConfig.url),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -19,11 +29,22 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     siteName: siteConfig.name,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: "no-push-oops - Git Pre-Push Hook for Quality Checks",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
+    images: [siteConfig.ogImage],
+    creator: "@sheikhnazmul",
+    site: "@sheikhnazmul",
   },
   robots: {
     index: true,
@@ -36,4 +57,5 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  manifest: "/site.webmanifest",
 }
