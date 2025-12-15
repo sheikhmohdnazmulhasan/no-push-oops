@@ -1,7 +1,6 @@
 export const siteConfig = {
   name: "no-push-oops",
   url: "https://no-push-oops.vercel.app",
-  ogImage: "https://no-push-oops.vercel.app/og.png",
   description:
     "Prevent 'oops' moments by running preflight checks before every Git push. A lightweight, configurable Git pre-push hook that automatically runs tests, linting, and type-checking before allowing pushes.",
   links: {
