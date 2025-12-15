@@ -104,7 +104,7 @@ export default function HomePage() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-border/50 mt-20">
+      <footer className="border-t border-border/50 mt-2">
         <div className="max-w-5xl mx-auto px-6 lg:px-10 py-8">
           <p className="text-center text-sm text-muted-foreground flex items-center justify-center gap-1.5">
             Made with
