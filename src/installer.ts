@@ -15,7 +15,7 @@ const PRE_PUSH_HOOK_TEMPLATE = `#!/bin/bash
 cd "\${GIT_DIR}/.." || exit 1
 
 # Run no-push-oops
-npx --no-install no-push-oops-run
+npx no-push-oops-run
 
 # Capture the exit code
 EXIT_CODE=$?
