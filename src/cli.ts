@@ -91,15 +91,17 @@ const main = async (): Promise<void> => {
   const command = isRunCommand && !args[0] ? 'run' : args[0];
 
   switch (command) {
-    case 'install':
+    case 'install': {
       const installSuccess = installHook();
       process.exit(installSuccess ? 0 : 1);
       break;
+    }
 
-    case 'uninstall':
+    case 'uninstall': {
       const uninstallSuccess = uninstallHook();
       process.exit(uninstallSuccess ? 0 : 1);
       break;
+    }
 
     case 'run':
       await run();

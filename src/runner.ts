@@ -22,8 +22,8 @@ export const runCommand = async ({
 
     console.log(chalk.blue(`Running: ${command}`));
 
-    const [cmd, ...args] = command.split(' ');
-    const child = spawn(cmd, args, {
+    // Use shell to properly handle command parsing (cross-platform)
+    const child = spawn(command, {
       shell: true,
       stdio: verbose ? 'inherit' : 'pipe',
     });

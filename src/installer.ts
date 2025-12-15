@@ -4,24 +4,30 @@ import chalk from 'chalk';
 import { findGitRoot } from './utils';
 
 /**
- * Pre-push hook template
+ * Pre-push hook template (Node.js for cross-platform compatibility)
  */
-const PRE_PUSH_HOOK_TEMPLATE = `#!/bin/bash
+const PRE_PUSH_HOOK_TEMPLATE = `#!/usr/bin/env node
 
-# Pre-push hook installed by no-push-oops
-# This hook runs preflight checks before allowing push
+// Pre-push hook installed by no-push-oops
+// This hook runs preflight checks before allowing push
 
-# Change to repository root directory  
-cd "\${GIT_DIR}/.." || exit 1
+const { execSync } = require('child_process');
+const { join } = require('path');
 
-# Run no-push-oops using npx (will use already installed package)
-npx no-push-oops run
-
-# Capture the exit code
-EXIT_CODE=$?
-
-# Exit with the captured code
-exit $EXIT_CODE
+try {
+  // Get the repository root directory
+  const repoRoot = execSync('git rev-parse --show-toplevel', { encoding: 'utf-8' }).trim();
+  
+  // Change to repository root
+  process.chdir(repoRoot);
+  
+  // Find and run the CLI from node_modules (cross-platform)
+  const cliPath = join(process.cwd(), 'node_modules', 'no-push-oops', 'dist', 'cli.js');
+  require(cliPath);
+} catch (error) {
+  console.error('Pre-push hook failed:', error.message);
+  process.exit(1);
+}
 `;
 
 /**
@@ -60,7 +66,14 @@ export const installHook = (projectRoot?: string): boolean => {
     }
 
     // Write the hook
-    fs.writeFileSync(hookPath, PRE_PUSH_HOOK_TEMPLATE, { mode: 0o755 });
+    fs.writeFileSync(hookPath, PRE_PUSH_HOOK_TEMPLATE);
+
+    // Set executable permission (works on Unix-like systems, safe to ignore on Windows)
+    try {
+      fs.chmodSync(hookPath, 0o755);
+    } catch (error) {
+      // Ignore chmod errors on Windows - Git handles hook execution differently
+    }
 
     console.log(chalk.green('[OK] Pre-push hook installed successfully!'));
     console.log(chalk.gray(`  Location: ${path.relative(cwd, hookPath)}`));
