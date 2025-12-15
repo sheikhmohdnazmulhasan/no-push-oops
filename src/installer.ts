@@ -14,8 +14,8 @@ const PRE_PUSH_HOOK_TEMPLATE = `#!/bin/bash
 # Change to repository root directory  
 cd "\${GIT_DIR}/.." || exit 1
 
-# Run no-push-oops using npx (properly resolves installed packages)
-npx --no-install no-push-oops run
+# Run no-push-oops using npx (will use already installed package)
+npx no-push-oops run
 
 # Capture the exit code
 EXIT_CODE=$?
