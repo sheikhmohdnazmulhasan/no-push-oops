@@ -17,9 +17,8 @@ changelog-template/
 ├── app/                    # Next.js App Router
 │   ├── layout.tsx
 │   ├── page.tsx
-│   ├── metadata.ts
-│   └── opengraph-image.tsx
-├── changelog/content/      # MDX changelog entries
+│   └── metadata.ts
+├── docs/content/           # MDX changelog entries
 ├── components/             # React components
 │   ├── ui/                 # UI components
 │   ├── theme-provider.tsx
