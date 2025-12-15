@@ -14,8 +14,8 @@ const PRE_PUSH_HOOK_TEMPLATE = `#!/bin/bash
 # Change to repository root directory  
 cd "\${GIT_DIR}/.." || exit 1
 
-# Run no-push-oops using node
-node node_modules/no-push-oops/dist/cli.js run
+# Run no-push-oops using npx (properly resolves installed packages)
+npx --no-install no-push-oops run
 
 # Capture the exit code
 EXIT_CODE=$?
