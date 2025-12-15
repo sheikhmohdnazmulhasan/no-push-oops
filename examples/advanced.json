@@ -1,0 +1,25 @@
+{
+  "name": "example-advanced",
+  "description": "Advanced example with multiple commands and configuration",
+  "no-push-oops": {
+    "commands": [
+      "npm run lint",
+      "npm run type-check",
+      "npm run test:unit",
+      "npm run test:integration",
+      "npm run build"
+    ],
+    "message": "Running comprehensive quality checks...",
+    "skipCI": true,
+    "skipOnBranches": ["main", "master", "production"],
+    "verbose": false,
+    "timeout": 600000
+  },
+  "scripts": {
+    "lint": "eslint src --ext .ts,.tsx",
+    "type-check": "tsc --noEmit",
+    "test:unit": "jest --testPathPattern=unit",
+    "test:integration": "jest --testPathPattern=integration",
+    "build": "tsc && webpack"
+  }
+}
