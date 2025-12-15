@@ -3,7 +3,6 @@ import { loader } from "fumadocs-core/source"
 import { createMDXSource } from "fumadocs-mdx"
 import { GithubStarButton } from "@/components/github-star-button"
 import { useMemo } from "react"
-import { formatDate } from "@/lib/utils"
 
 const source = loader({
   baseUrl: "/docs",
