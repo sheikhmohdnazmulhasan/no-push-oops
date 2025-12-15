@@ -3,7 +3,7 @@ import { siteConfig } from "@/lib/site"
 
 export const metadata: Metadata = {
   title: {
-    default: siteConfig.name,
+    default: siteConfig.name + " - Prevent 'oops' moments",
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
