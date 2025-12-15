@@ -84,7 +84,11 @@ const run = async (): Promise<void> => {
  */
 const main = async (): Promise<void> => {
   const args = process.argv.slice(2);
-  const command = args[0];
+
+  // If called as 'no-push-oops-run', automatically run checks
+  const scriptName = process.argv[1];
+  const isRunCommand = scriptName && scriptName.includes('no-push-oops-run');
+  const command = isRunCommand && !args[0] ? 'run' : args[0];
 
   switch (command) {
     case 'install':

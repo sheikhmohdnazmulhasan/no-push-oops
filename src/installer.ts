@@ -11,11 +11,11 @@ const PRE_PUSH_HOOK_TEMPLATE = `#!/bin/bash
 # Pre-push hook installed by no-push-oops
 # This hook runs preflight checks before allowing push
 
-# Change to the repository root directory
+# Change to repository root directory  
 cd "\${GIT_DIR}/.." || exit 1
 
-# Run no-push-oops
-npx no-push-oops-run
+# Run no-push-oops using node
+node node_modules/no-push-oops/dist/cli.js run
 
 # Capture the exit code
 EXIT_CODE=$?
