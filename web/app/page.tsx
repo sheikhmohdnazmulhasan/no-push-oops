@@ -2,7 +2,6 @@ import { docs, meta } from "@/.source"
 import { loader } from "fumadocs-core/source"
 import { createMDXSource } from "fumadocs-mdx"
 import { GithubStarButton } from "@/components/github-star-button"
-import { useMemo } from "react"
 import { Heart } from "lucide-react"
 
 const source = loader({
@@ -23,15 +22,20 @@ interface DocumentationPage {
   data: DocumentationData
 }
 
+/**
+ * Sorts documentation pages by date in descending order (newest first)
+ */
+const getSortedDocs = (): DocumentationPage[] => {
+  const allPages = source.getPages() as DocumentationPage[]
+  return allPages.sort((a, b) => {
+    const dateA = new Date(a.data.date).getTime()
+    const dateB = new Date(b.data.date).getTime()
+    return dateB - dateA
+  })
+}
+
 export default function HomePage() {
-  const sortedDocs = useMemo(() => {
-    const allPages = source.getPages() as DocumentationPage[]
-    return allPages.sort((a, b) => {
-      const dateA = new Date(a.data.date).getTime()
-      const dateB = new Date(b.data.date).getTime()
-      return dateB - dateA
-    })
-  }, [])
+  const sortedDocs = getSortedDocs()
 
   return (
     <div className="min-h-screen bg-background relative">
