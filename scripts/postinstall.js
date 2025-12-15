@@ -9,9 +9,10 @@ const { installHook } = require('../dist/installer');
 const chalk = require('chalk');
 
 // Only run in user projects, not when developing the package itself
+// If we're in node_modules, it's a user install. Otherwise, it's development mode.
 const isUserInstall =
   process.env.npm_config_global !== 'true' &&
-  !process.env.npm_package_name?.includes('no-push-oops');
+  __dirname.includes('node_modules');
 
 if (isUserInstall) {
   console.log(chalk.cyan('\nno-push-oops: Setting up pre-push hook...\n'));
