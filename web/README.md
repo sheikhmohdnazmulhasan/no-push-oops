@@ -1,29 +1,39 @@
-# Changelog Template
+# no-push-oops Documentation Website
 
-A minimal changelog template built using Next.js. Used to showcase product releases, features, and bug fixes in chronological order.
+Documentation website for **no-push-oops** - a lightweight Git pre-push hook that prevents "oops" moments by running quality checks before every push.
 
 ## Features
 
-- ✨ **Timeline Design** - Visual timeline with dates and versions
-- 🌙 **Dark Mode** - Automatic theme switching
-- 📱 **Responsive** - Optimized for all devices
-- 🔄 **MDX Support** - Write changelog entries in MDX
+- 📚 **MDX Documentation** - Write docs with full React component support
+- 🌙 **Dark Mode** - Automatic theme switching with system preference detection
+- 📱 **Responsive** - Optimized for all device sizes
 - ⚡ **Fast** - Built with Next.js 15 and React Server Components
+- 🎨 **Timeline Layout** - Chronological documentation with visual timeline
+- 🔍 **Type-Safe** - Full TypeScript support
 
 ## Project Structure
 
 ```
-changelog-template/
+web/
 ├── app/                    # Next.js App Router
-│   ├── layout.tsx
-│   ├── page.tsx
-│   └── metadata.ts
-├── docs/content/           # MDX changelog entries
+│   ├── layout.tsx          # Root layout with theme provider
+│   ├── page.tsx            # Main documentation page
+│   ├── metadata.ts         # SEO metadata
+│   └── globals.css         # Global styles
+├── docs/content/           # MDX documentation files
+│   ├── getting-started.mdx # Installation and setup
+│   ├── configuration.mdx   # Configuration options
+│   ├── usage.mdx           # Usage examples
+│   ├── api.mdx             # API reference
+│   └── comparison-faq.mdx  # Comparisons and FAQs
 ├── components/             # React components
-│   ├── ui/                 # UI components
+│   ├── ui/                 # shadcn/ui components
+│   ├── github-star-button.tsx
 │   ├── theme-provider.tsx
 │   └── theme-toggle.tsx
 ├── lib/                    # Utilities
+│   ├── site.ts             # Site configuration
+│   └── utils.ts            # Utility functions
 ├── public/                 # Static assets
 ├── mdx-components.tsx      # MDX component overrides
 └── source.config.ts        # Fumadocs configuration
@@ -45,28 +55,35 @@ pnpm dev
 
 3. Open [http://localhost:3000](http://localhost:3000)
 
-## Adding Changelog Entries
+## Adding Documentation
 
-Create a new MDX file in `changelog/content/` with format `YYYY-MM-DD.mdx`:
+Create a new MDX file in `docs/content/`:
 
 ```mdx
 ---
-title: "Your Update Title"
+title: "Documentation Title"
 description: "Brief description"
-date: "2025-06-15"
-tags: ["Feature", "Bug Fix"]
-version: "1.2"
+date: "2025-01-15"
+tags: ["Installation", "Setup"]
+version: "1.0"
 ---
 
-Your changelog content here...
+Your documentation content here...
+
+## Heading
+
+Use standard MDX syntax with full React component support.
 ```
 
 ## Scripts
 
-- `pnpm dev` - Development server
+- `pnpm dev` - Start development server with Turbopack
 - `pnpm build` - Build for production
 - `pnpm start` - Start production server
-- `pnpm lint` - Run linting
+- `pnpm lint` - Run ESLint
+- `pnpm lint:fix` - Auto-fix linting issues
+- `pnpm format` - Check code formatting
+- `pnpm format:write` - Auto-format code
 
 ## Tech Stack
 
@@ -83,6 +100,11 @@ Deploy to any Next.js compatible platform:
 - [Vercel](https://vercel.com) (recommended)
 - [Netlify](https://netlify.com)
 - [Cloudflare Pages](https://pages.cloudflare.com)
+
+## Related
+
+- [no-push-oops](../) - Main package repository
+- [GitHub](https://github.com/sheikhmohdnazmulhasan/no-push-oops)
 
 ## License
 
