@@ -3,6 +3,7 @@ import { loader } from "fumadocs-core/source"
 import { createMDXSource } from "fumadocs-mdx"
 import { GithubStarButton } from "@/components/github-star-button"
 import { useMemo } from "react"
+import { Heart } from "lucide-react"
 
 const source = loader({
   baseUrl: "/docs",
@@ -97,6 +98,17 @@ export default function HomePage() {
           })}
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="border-t border-border/50 mt-20">
+        <div className="max-w-5xl mx-auto px-6 lg:px-10 py-8">
+          <p className="text-center text-sm text-muted-foreground flex items-center justify-center gap-1.5">
+            Made with
+            <Heart className="size-4 text-red-500 fill-red-500 animate-pulse" />
+            to prevent oops moments
+          </p>
+        </div>
+      </footer>
     </div>
   )
 }
