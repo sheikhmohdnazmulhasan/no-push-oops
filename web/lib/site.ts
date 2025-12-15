@@ -7,40 +7,6 @@ export const siteConfig = {
     github: "https://github.com/sheikhmohdnazmulhasan/no-push-oops",
     npm: "https://www.npmjs.com/package/no-push-oops",
   },
-  keywords: [
-    "git",
-    "git hooks",
-    "pre-push",
-    "pre-push hook",
-    "preflight checks",
-    "code quality",
-    "ci/cd",
-    "continuous integration",
-    "testing",
-    "linting",
-    "type checking",
-    "typescript",
-    "javascript",
-    "nodejs",
-    "npm package",
-    "developer tools",
-    "devops",
-    "git workflow",
-    "quality assurance",
-    "automated testing",
-  ],
 }
 
-export interface SiteConfig {
-  name: string
-  url: string
-  ogImage: string
-  description: string
-  links: {
-    github: string
-    npm: string
-  }
-  keywords: string[]
-}
-
-export type SiteConfigType = typeof siteConfig
+export type SiteConfig = typeof siteConfig
